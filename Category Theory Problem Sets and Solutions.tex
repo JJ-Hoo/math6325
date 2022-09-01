@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{float}
 \usepackage{amsthm}
+\usepackage{outlines}
 \usepackage{graphicx}
 \usepackage{fullpage}
 \usepackage{color}
@@ -50,4 +51,83 @@
     \item Problem 10 - Unclaimed
     \item Problem 11 - Unclaimed
 \end{itemize}
+
+\subsection{Problem 4 - Orin Gotchey}
+\subsubsection{Measurable Spaces as a Category}
+\begin{definition}{$\sigma{}$-algebras}
+Let $X$ be a set.  Let $\Omega$ be any subset of $\mathcal{P}(X)$ satisfying the following conditions:
+\begin{itemize}
+    \item $X\in\Omega_{X}$
+    \item For each $E\in\Omega$, $X\backslash E\in\Omega_{X}$
+    \item For any index $I: \mathbb{N}\rightarrow\Omega_{X}$, $(\cup_{n\in\mathbb{N}}I(n))\in\Omega_{X}$
+\end{itemize} $\Omega$ is called a $\sigma$\textit{-algebra} on $X$, the pair $(X,\Omega_{X})$ a \textit{measurable space}, the elements of $\Omega_{X}$ the \textit{measurable subsets} of $X$.  
+\end{definition}
+It follows immediately that $\varnothing\in\Omega_{X}$, and that $\Omega_{X}$ is closed under countable intersection.\\
+\begin{definition}{Measurable Maps}The maps $f: X\rightarrow Y$ between measurable spaces which have the following property: 
+\begin{equation*}
+    \forall E\subset X: (f(E)\in\Sigma\implies E\in\Omega) 
+\end{equation*}
+are called \textit{measurable maps} or \textit{measurable functions}.
+\end{definition}
+Let $\texttt{Meas}$ be the category specified as follows:
+\begin{outline}
+    \1 Objects are the measurable spaces $(X,\Omega)$
+    \1 Morphisms are the measurable functions.
+\end{outline}
+Then, given any morphism $f: X\rightarrow{}Y$,
+\begin{equation*}
+    f\circ\texttt{Id}_X = f
+\end{equation*}
+\begin{equation*}
+    \texttt{Id}_Y\circ{}f = f
+\end{equation*}
+Associativity follows from the fact that the composition of functions on the underlying sets is associative.\\Given two composable morphisms, say $f: X\rightarrow{}Y$ and $g:Y\rightarrow{}Z$, consider the composition $g\circ f: X\rightarrow{}Z$, and let $\gamma\in\Omega_{Z}$.  Then:
+\begin{equation*}
+    g^{-1}(\gamma) \in \Omega_{Y}
+\end{equation*}
+\begin{equation*}
+    f^{-1}(g^{-1}(\gamma)) = (g\circ f)^{-1}(\gamma) \in\Omega_{X}
+\end{equation*}.
+Thus, we have that \texttt{Meas} is a category.
+
+\subsubsection{Enhanced Measurable Spaces}
+Let $(X,\Omega_X)$ be a topological space.  Then $\mathcal{P}(X)$ forms a Boolean commutative ring with the operations $\cap$ and $\triangle$ as multiplication and addition, respectively, and of which $\Omega_X$ is a subring.
+Define an \textit{enhanced measurable space} as a triple $(X,\Omega_X,N_X)$, where $(X,\Omega_X)$ form a measurable space, and $N_X$ is a $\sigma$-ideal of $\Omega_{X}$ (recall: a $\sigma$-\textit{ideal} is an ideal which is closed under \textit{countable} addition).  A \textit{negligible set} in $X$ is some subset of $N_{X}$.\\The \textit{measurable maps} $f: (X,\Omega_X, N_X)\rightarrow(Y,\Omega_Y,N_Y)$ are maps of sets: $f: X_f\rightarrow{}Y$, where $X_f\subset{}X$, such that $f$ obeys the following conditions (which are verified for the identity maps in the subpoints where $X=Y$):
+\begin{enumerate}
+\item The set $X\backslash{}X_f$ is negligible
+\begin{itemize}\item $X=X_{\texttt{Id}_X}$ and $X\backslash{}X_{\texttt{Id}_X}=\varnothing\in{}N_X$, by definition of ideal. \end{itemize}
+\item For any $m_{y}\in\Omega_Y$, there exists a set $m_{x}$ such that $f^{-1}(m_y)\triangle{}m_x$ is negligible
+\begin{itemize}\item Given $m_{x}$, $\texttt{Id}^{-1}_X(m_x)\triangle{}m_X = m_x\triangle{}m_x = \varnothing\in{}N_X$ \end{itemize}
+\item For any $n_y\in N_Y$, the set $f^{-1}(n_y)$ is negligible.
+\begin{itemize} \item $\texttt{Id}_X(n_x) = n_x$ \end{itemize}
+\end{enumerate}
+We cannot define composition of morphisms strictly as composition of underlying maps, because there is no guarantee, e.g., for two maps between enhanced measurable spaces $f:X\rightarrow{}Y,\,g:Y\rightarrow{}Z$, that $\textit{Im}f\subset{}Y_g$.  Thus, we restrict the domain of the composition to:
+\begin{equation*}
+     X_{g\circ{}f} := f^{-1}(Y_g)
+\end{equation*}.
+However, it is clear by inspection that composition of morphisms retains associativity.
+Then,
+\begin{equation*}
+    X\backslash{}X_{g\circ{}f} = X\backslash{}f^{-1}(Y_g) = (f^{-1}(Y\backslash(Y_g)))
+\end{equation*}
+The negligibility of the above quantity then follows from the definition of $f$.\\
+Furthermore, given $m_z\in\Omega_Z$, we have that $(g\circ{}f)^{-1}(m_z) = f^{-1}(g^{-1}(m_z))$.  Since $g$ is measurable (\textit{why?}) and since $f$ is presumed to satisfy (2), $g\circ{}f$ satisfies (2).\\(3) is clearly transitive.\\Thus, enhanced measurable spaces and measurable maps form a category.
+\subsubsection{Equality Almost Everywhere}
+Two parallel morphisms $f,g: (X,\Omega_X, N_X)\rightarrow{}(Y,\Omega_Y,N_Y)$ are "equal almost everywhere" if the set $\{x\in X_f\cap{}X_G : f(x)\neq{}g(x)\}$ is negligible.  Let "$f$ and $g$ are equal almost everywhere" be denoted $f\sim{}g$.  Claim: $\sim$ defines an equivalence relation.
+\begin{itemize}
+    \item Reflexivity: A function differs from itself on the empty set ($\varnothing$), which is negligible (see above)
+    \item Symmetry: Note that the symbols $f$ and $g$ in the definition of equality almost everywhere are symmetric
+    \item Transitivity: If $f\sim{}g$ and $g\sim{}h$ for parallel morphisms $f,g,$ and $h$, then 
+    \begin{equation*}
+    \{x\in X_f\cap{}X_h:f(x)\neq h(x)\}\subset{}(\{x\in X_f\cap{}X_g: f(x)\neq g(x)\}\cup{}\{x\in{}X_g\cap{}X_h: g(x)\neq{}h(x)\})
+    \end{equation*}, and $N$ is closed under countable unions and taking subsets, so the left hand side of the above is negligible.
+\end{itemize}
+Furthermore, this equivalence relation is compatible with composition.  Assume that there are morphisms $f,f': X\rightarrow{}Y$ and $g,g': Y\rightarrow{}Z$. such that $f\sim{}f'$ and $g\sim{}g'$.  We're interested in the set
+\begin{multline*}
+    \{ x\in{}X_{g\circ{}f}\cap X_{g'\circ{}f'} : (g\circ{}f)(x)\neq(g'\circ{}f')(x) \} \subset{} \{x\in{}X_f\cap{}X_{f'} : f(x)\neq{}f'(x)\}\\ \cup{}f^{-1}(\{y\in{}Y_g\cap{}Y_g': g(y)\neq{}g'(y)\})
+\end{multline*}
+This set is the union of two negligible sets.
+\subsubsection{Hom-sets mod an Equivalence Relation}
+Suppose that for every pair of objects $X,Y$ in a category $C$, we are given (e.g. by the above) an equivalence relation $R_{X,Y}$ on $C(X,Y)$ that is compatible with composition (i.e. if $f\sim_Rf'$ and $g\sim_Rg'$ then $(g\circ{}f)\sim_R(g'\circ{}f')$.  We identify all morphisms in $C$ between any two objects $X$ and $Y$ which relate through $R_{X,Y}$.  Composition of equivalence classes of $\sim{}$ does not depend on choice of representative: this is exactly compatibility with $\circ{}$\\Verifying that the proper morphisms are unital and associative are gifted as simple exercises to the reader ;)
+
 \end{document}
