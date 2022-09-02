@@ -10,6 +10,7 @@
 \usepackage{fullpage}
 \usepackage{color}
 \usepackage{hyperref}
+\usepackage{mathtools}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -44,7 +45,7 @@
     \item Problem 3 - Emilio Verdooren
     \item Problem 4 - Orin Gotchey
     \item Problem 5 - Unclaimed
-    \item Problem 6 - Unclaimed
+    \item Problem 6 - Alan Bohnert
     \item Problem 7 - Unclaimed
     \item Problem 8 - Unclaimed
     \item Problem 9 - Unclaimed
@@ -130,4 +131,65 @@ This set is the union of two negligible sets.
 \subsubsection{Hom-sets mod an Equivalence Relation}
 Suppose that for every pair of objects $X,Y$ in a category $C$, we are given (e.g. by the above) an equivalence relation $R_{X,Y}$ on $C(X,Y)$ that is compatible with composition (i.e. if $f\sim_Rf'$ and $g\sim_Rg'$ then $(g\circ{}f)\sim_R(g'\circ{}f')$.  We identify all morphisms in $C$ between any two objects $X$ and $Y$ which relate through $R_{X,Y}$.  Composition of equivalence classes of $\sim{}$ does not depend on choice of representative: this is exactly compatibility with $\circ{}$\\Verifying that the proper morphisms are unital and associative are gifted as simple exercises to the reader ;)
 
+
+
+\subsection{Problem 6 - Alan Bohnert}
+\subsubsection{Question}
+Fix a category \textbf{C}. 
+A \textit{bimorphism} in \textbf{C} is a morphism $f$ that is simultaneously a monomorphsim and an epimorphism. Is any isomorphism a bimorphism? 
+Give and example of a category \textbf{C} and a bimorphism $f$ in \textbf{C} that is not an isomorphism.
+
+\subsubsection{Solution}
+In any category \textbf{C} every isomorphism is a bimorphism.
+
+\begin{proof}
+    Let $f:X\xrightarrow{}Y$ be an isomorphism in \textbf{C}. 
+    Then there exists a morphism $g:Y\xrightarrow{}X$ in \textbf{C} such that 
+    \begin{center}
+        $gf=$Id$_X$ and $fg=$Id$_Y$.
+    \end{center}
+    
+    To show $f$ is a monomorphism let $h,k:W \rightrightarrows X$ and $fh=fk$.
+    It follows that $gfh=gfk$ for the $g$ given above.
+    Therefore Id$_X h=$Id$_X k$ and so $h=k$ tells us $f$ is a monomorphism.
+    
+    To show $f$ is an epimorphism let $m,n:Y \rightrightarrows Z$ and $mf=nf$.
+    Composing with the $g$ we know $mfg=nfg$.
+    Consequently $m$Id$_Y=n$Id$_Y$ and $m=n$ tells us $f$ is an epimorphism.
+    Therefore $f$ is a bimorphism.
+\end{proof}
+
+\vspace{2mm}
+
+\noindent Let \textbf{C} be the category \textbf{Ring} and let $f:\Z \xhookrightarrow[]{} \Q$ the inclusion map.
+We claim $f$ is a bimorphism but not an isomorphism.
+
+\begin{proof}
+    To show $f$ is a monomorphism let $h,k:W \rightrightarrows \Z$ and $f\circ h(w)=f \circ k (w)$ $\forall w\in W$.
+    Since $f$ is injective
+    \begin{center}
+        $h(w)=f\circ h(w)=f\circ k(w)=k(w)$.
+    \end{center}
+    Therefore $h(w)=k(w)$ and $f$ is a monomorphism.
+    
+    To show $f$ is an epimorphism let $m,n:\Q \rightrightarrows S$ such that $m\circ f(x)=n\circ f(x)$ $\forall x\in \Q$.
+    Since $f$ is injective, we know $m(z)=n(z)$ $\forall z\in\Z$.
+    Seeking a contraction, suppose there exists $\frac{a}{b}\in \Q$ such that $m(\frac{a}{b})\neq n(\frac{a}{b})$.
+    Given $m$ and $n$ are ring homomorphisms we know
+    \begin{center}
+        $m(a)m(b^{-1})=m(\frac{a}{b}) \neq n(\frac{a}{b})=n(a)n(b^{-1})$.
+    \end{center}
+    Given $b$ is an invertible integer and $m(b)=n(b)$ we can multiply on the right and retain the inequality.
+    Thus, 
+    \begin{center}
+        $m(a)m(b^{-1})m(b)\neq n(a)n(b^{-1})n(b)$
+    \end{center} 
+    and as ring homomorphisms we have
+    \begin{center}
+        $m(a)=m(a)m(b^{-1}b)\neq n(a)n(b^{-1}b)=n(a)$.
+    \end{center}
+    Therefore $f$ is a epimorphism.
+    
+    To show $f$ is not an isomorphism we note $\frac{1}{3}\in \Q$ has no preimage in $\Z$.
+\end{proof}
 \end{document}
