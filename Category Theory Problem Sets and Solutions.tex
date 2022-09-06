@@ -1,4 +1,6 @@
 \documentclass{article}
+
+%packages
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -11,13 +13,16 @@
 \usepackage{color}
 \usepackage{hyperref}
 \usepackage{mathtools}
+\usepackage{easyReview}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    urlcolor=red,
-    linktoc=all
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=red,
+	linktoc=all
 }
 \definecolor{dg}{rgb}{0.0, 0.5, 0.0}
+
+%Commands
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\N}{\mathbb{N}}
@@ -25,171 +30,230 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\D}{\mathbb{D}}
 \newcommand{\HH}{\mathbb{H}}
-\newtheorem{theorem}{Theorem}
-\newtheorem{example}{Example}
-\newtheorem{proposition}{Proposition}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
+
+%Theorems, etc. (shared counters)
+\newtheorem{theorem}[subsection]{Theorem}
+\newtheorem{example}[subsection]{Example}
+\newtheorem{proposition}[subsection]{Proposition}
+\newtheorem{lemma}[subsection]{Lemma}
+\newtheorem{definition}[subsection]{Definition}
+
+%Math Operators
+\DeclareMathOperator{\calg}{\textsf{CAlg}^{*}_{\mathbb{C}}}
+\DeclareMathOperator{\linf}{L^\infty}
+
 \title{Category Theory Problem Sets and Solutions}
 \author{Fall 2022}
 \begin{document}
-
-\maketitle
-\tableofcontents
-\newpage
-\section{Problem Set 1}
-\subsection{Assignments}
+	
+	\maketitle
+	\tableofcontents
+	\newpage
+	\section{Problem Set 1}
+	\subsection*{Assignments}
+	\begin{itemize}
+		\item Problem 1 - Unclaimed
+		\item Problem 2 - Emilio Verdooren
+		\item Problem 3 - Emilio Verdooren
+		\item Problem 4 - Orin Gotchey
+		\item Problem 5 - Unclaimed
+		\item Problem 6 - Alan Bohnert
+		\item Problem 7 - Unclaimed
+		\item Problem 8 - Unclaimed
+		\item Problem 9 - Unclaimed
+		\item Problem 10 - Unclaimed
+		\item Problem 11 - Unclaimed
+	\end{itemize}
+	
+	\subsection{Problem 4 - Orin Gotchey}
+	\subsubsection{Measurable Spaces as a Category}
+	\begin{definition}{$\sigma{}$-algebras}
+		Let $X$ be a set.  Let $\Omega$ be any subset of $\mathcal{P}(X)$ satisfying the following conditions:
+		\begin{itemize}
+			\item $X\in\Omega_{X}$
+			\item For each $E\in\Omega$, $X\backslash E\in\Omega_{X}$
+			\item For any index $I: \mathbb{N}\rightarrow\Omega_{X}$, $(\cup_{n\in\mathbb{N}}I(n))\in\Omega_{X}$
+		\end{itemize} $\Omega$ is called a $\sigma$\textit{-algebra} on $X$, the pair $(X,\Omega_{X})$ a \textit{measurable space}, the elements of $\Omega_{X}$ the \textit{measurable subsets} of $X$.  
+	\end{definition}
+	It follows immediately that $\varnothing\in\Omega_{X}$, and that $\Omega_{X}$ is closed under countable intersection.\\
+	\begin{definition}{Measurable Maps}The maps $f: X\rightarrow Y$ between measurable spaces which have the following property: 
+		\begin{equation*}
+			\forall E\subset X: (f(E)\in\Sigma\implies E\in\Omega) 
+		\end{equation*}
+		are called \textit{measurable maps} or \textit{measurable functions}.
+	\end{definition}
+	Let $\texttt{Meas}$ be the category specified as follows:
+	\begin{outline}
+		\1 Objects are the measurable spaces $(X,\Omega)$
+		\1 Morphisms are the measurable functions.
+	\end{outline}
+	Then, given any morphism $f: X\rightarrow{}Y$,
+	\begin{equation*}
+		f\circ\texttt{Id}_X = f
+	\end{equation*}
+	\begin{equation*}
+		\texttt{Id}_Y\circ{}f = f
+	\end{equation*}
+	Associativity follows from the fact that the composition of functions on the underlying sets is associative.\\Given two composable morphisms, say $f: X\rightarrow{}Y$ and $g:Y\rightarrow{}Z$, consider the composition $g\circ f: X\rightarrow{}Z$, and let $\gamma\in\Omega_{Z}$.  Then:
+	\begin{equation*}
+		g^{-1}(\gamma) \in \Omega_{Y}
+	\end{equation*}
+	\begin{equation*}
+		f^{-1}(g^{-1}(\gamma)) = (g\circ f)^{-1}(\gamma) \in\Omega_{X}
+	\end{equation*}.
+	Thus, we have that \texttt{Meas} is a category.
+	
+	\subsubsection{Enhanced Measurable Spaces}
+	Let $(X,\Omega_X)$ be a topological space.  Then $\mathcal{P}(X)$ forms a Boolean commutative ring with the operations $\cap$ and $\triangle$ as multiplication and addition, respectively, and of which $\Omega_X$ is a subring.
+	Define an \textit{enhanced measurable space} as a triple $(X,\Omega_X,N_X)$, where $(X,\Omega_X)$ form a measurable space, and $N_X$ is a $\sigma$-ideal of $\Omega_{X}$ (recall: a $\sigma$-\textit{ideal} is an ideal which is closed under \textit{countable} addition).  A \textit{negligible set} in $X$ is some subset of $N_{X}$.\\The \textit{measurable maps} $f: (X,\Omega_X, N_X)\rightarrow(Y,\Omega_Y,N_Y)$ are maps of sets: $f: X_f\rightarrow{}Y$, where $X_f\subset{}X$, such that $f$ obeys the following conditions (which are verified for the identity maps in the subpoints where $X=Y$):
+	\begin{enumerate}
+		\item The set $X\backslash{}X_f$ is negligible
+		\begin{itemize}\item $X=X_{\texttt{Id}_X}$ and $X\backslash{}X_{\texttt{Id}_X}=\varnothing\in{}N_X$, by definition of ideal. \end{itemize}
+		\item For any $m_{y}\in\Omega_Y$, there exists a set $m_{x}$ such that $f^{-1}(m_y)\triangle{}m_x$ is negligible
+		\begin{itemize}\item Given $m_{x}$, $\texttt{Id}^{-1}_X(m_x)\triangle{}m_X = m_x\triangle{}m_x = \varnothing\in{}N_X$ \end{itemize}
+		\item For any $n_y\in N_Y$, the set $f^{-1}(n_y)$ is negligible.
+		\begin{itemize} \item $\texttt{Id}_X(n_x) = n_x$ \end{itemize}
+	\end{enumerate}
+	We cannot define composition of morphisms strictly as composition of underlying maps, because there is no guarantee, e.g., for two maps between enhanced measurable spaces $f:X\rightarrow{}Y,\,g:Y\rightarrow{}Z$, that $\textit{Im}f\subset{}Y_g$.  Thus, we restrict the domain of the composition to:
+	\begin{equation*}
+		X_{g\circ{}f} := f^{-1}(Y_g)
+	\end{equation*}.
+	However, it is clear by inspection that composition of morphisms retains associativity.
+	Then,
+	\begin{equation*}
+		X\backslash{}X_{g\circ{}f} = X\backslash{}f^{-1}(Y_g) = (f^{-1}(Y\backslash(Y_g)))
+	\end{equation*}
+	The negligibility of the above quantity then follows from the definition of $f$.\\
+	Furthermore, given $m_z\in\Omega_Z$, we have that $(g\circ{}f)^{-1}(m_z) = f^{-1}(g^{-1}(m_z))$.  Since $g$ is measurable (\textit{why?}) and since $f$ is presumed to satisfy (2), $g\circ{}f$ satisfies (2).\\(3) is clearly transitive.\\Thus, enhanced measurable spaces and measurable maps form a category.
+	\subsubsection{Equality Almost Everywhere}
+	Two parallel morphisms $f,g: (X,\Omega_X, N_X)\rightarrow{}(Y,\Omega_Y,N_Y)$ are "equal almost everywhere" if the set $\{x\in X_f\cap{}X_G : f(x)\neq{}g(x)\}$ is negligible.  Let "$f$ and $g$ are equal almost everywhere" be denoted $f\sim{}g$.  Claim: $\sim$ defines an equivalence relation.
+	\begin{itemize}
+		\item Reflexivity: A function differs from itself on the empty set ($\varnothing$), which is negligible (see above)
+		\item Symmetry: Note that the symbols $f$ and $g$ in the definition of equality almost everywhere are symmetric
+		\item Transitivity: If $f\sim{}g$ and $g\sim{}h$ for parallel morphisms $f,g,$ and $h$, then 
+		\begin{equation*}
+			\{x\in X_f\cap{}X_h:f(x)\neq h(x)\}\subset{}(\{x\in X_f\cap{}X_g: f(x)\neq g(x)\}\cup{}\{x\in{}X_g\cap{}X_h: g(x)\neq{}h(x)\})
+		\end{equation*}, and $N$ is closed under countable unions and taking subsets, so the left hand side of the above is negligible.
+	\end{itemize}
+	Furthermore, this equivalence relation is compatible with composition.  Assume that there are morphisms $f,f': X\rightarrow{}Y$ and $g,g': Y\rightarrow{}Z$. such that $f\sim{}f'$ and $g\sim{}g'$.  We're interested in the set
+	\begin{multline*}
+		\{ x\in{}X_{g\circ{}f}\cap X_{g'\circ{}f'} : (g\circ{}f)(x)\neq(g'\circ{}f')(x) \} \subset{} \{x\in{}X_f\cap{}X_{f'} : f(x)\neq{}f'(x)\}\\ \cup{}f^{-1}(\{y\in{}Y_g\cap{}Y_g': g(y)\neq{}g'(y)\})
+	\end{multline*}
+	This set is the union of two negligible sets.
+	\subsubsection{Hom-sets mod an Equivalence Relation}
+	Suppose that for every pair of objects $X,Y$ in a category $C$, we are given (e.g. by the above) an equivalence relation $R_{X,Y}$ on $C(X,Y)$ that is compatible with composition (i.e. if $f\sim_Rf'$ and $g\sim_Rg'$ then $(g\circ{}f)\sim_R(g'\circ{}f')$.  We identify all morphisms in $C$ between any two objects $X$ and $Y$ which relate through $R_{X,Y}$.  Composition of equivalence classes of $\sim{}$ does not depend on choice of representative: this is exactly compatibility with $\circ{}$\\Verifying that the proper morphisms are unital and associative are gifted as simple exercises to the reader ;)
+	
+	
+	
+	\subsection{Problem 6 - Alan Bohnert}
+	\subsubsection{Question}
+	Fix a category \textbf{C}. 
+	A \textit{bimorphism} in \textbf{C} is a morphism $f$ that is simultaneously a monomorphsim and an epimorphism. Is any isomorphism a bimorphism? 
+	Give and example of a category \textbf{C} and a bimorphism $f$ in \textbf{C} that is not an isomorphism.
+	
+	\subsubsection{Solution}
+	In any category \textbf{C} every isomorphism is a bimorphism.
+	
+	\begin{proof}
+		Let $f:X\xrightarrow{}Y$ be an isomorphism in \textbf{C}. 
+		Then there exists a morphism $g:Y\xrightarrow{}X$ in \textbf{C} such that 
+		\begin{center}
+			$gf=$Id$_X$ and $fg=$Id$_Y$.
+		\end{center}
+		
+		To show $f$ is a monomorphism let $h,k:W \rightrightarrows X$ and $fh=fk$.
+		It follows that $gfh=gfk$ for the $g$ given above.
+		Therefore Id$_X h=$Id$_X k$ and so $h=k$ tells us $f$ is a monomorphism.
+		
+		To show $f$ is an epimorphism let $m,n:Y \rightrightarrows Z$ and $mf=nf$.
+		Composing with the $g$ we know $mfg=nfg$.
+		Consequently $m$Id$_Y=n$Id$_Y$ and $m=n$ tells us $f$ is an epimorphism.
+		Therefore $f$ is a bimorphism.
+	\end{proof}
+	
+	\vspace{2mm}
+	
+	\noindent Let \textbf{C} be the category \textbf{Ring} and let $f:\Z \xhookrightarrow[]{} \Q$ the inclusion map.
+	We claim $f$ is a bimorphism but not an isomorphism.
+	
+	\begin{proof}
+		To show $f$ is a monomorphism let $h,k:W \rightrightarrows \Z$ and $f\circ h(w)=f \circ k (w)$ $\forall w\in W$.
+		Since $f$ is injective
+		\begin{center}
+			$h(w)=f\circ h(w)=f\circ k(w)=k(w)$.
+		\end{center}
+		Therefore $h(w)=k(w)$ and $f$ is a monomorphism.
+		
+		To show $f$ is an epimorphism let $m,n:\Q \rightrightarrows S$ such that $m\circ f(x)=n\circ f(x)$ $\forall x\in \Q$.
+		Since $f$ is injective, we know $m(z)=n(z)$ $\forall z\in\Z$.
+		Seeking a contraction, suppose there exists $\frac{a}{b}\in \Q$ such that $m(\frac{a}{b})\neq n(\frac{a}{b})$.
+		Given $m$ and $n$ are ring homomorphisms we know
+		\begin{center}
+			$m(a)m(b^{-1})=m(\frac{a}{b}) \neq n(\frac{a}{b})=n(a)n(b^{-1})$.
+		\end{center}
+		Given $b$ is an invertible integer and $m(b)=n(b)$ we can multiply on the right and retain the inequality.
+		Thus, 
+		\begin{center}
+			$m(a)m(b^{-1})m(b)\neq n(a)n(b^{-1})n(b)$
+		\end{center} 
+		and as ring homomorphisms we have
+		\begin{center}
+			$m(a)=m(a)m(b^{-1}b)\neq n(a)n(b^{-1}b)=n(a)$.
+		\end{center}
+		Therefore $f$ is a epimorphism.
+		
+		To show $f$ is not an isomorphism we note $\frac{1}{3}\in \Q$ has no preimage in $\Z$.
+	\end{proof}
+\section{Problem Set 2}
+\subsection*{Assignments}
 \begin{itemize}
-    \item Problem 1 - Unclaimed
-    \item Problem 2 - Emilio Verdooren
-    \item Problem 3 - Emilio Verdooren
-    \item Problem 4 - Orin Gotchey
-    \item Problem 5 - Unclaimed
-    \item Problem 6 - Alan Bohnert
-    \item Problem 7 - Unclaimed
-    \item Problem 8 - Unclaimed
-    \item Problem 9 - Unclaimed
-    \item Problem 10 - Unclaimed
-    \item Problem 11 - Unclaimed
+	\item Problem 1 - Orin Gotchey
+	\item Problem 2 - Unclaimed
+	\item Problem 3 - Bradley
+	\item Problem 4 - Alan
+	\item Problem 5 - Unclaimed
+	\item Problem 6 - Emilio
 \end{itemize}
-
-\subsection{Problem 4 - Orin Gotchey}
-\subsubsection{Measurable Spaces as a Category}
-\begin{definition}{$\sigma{}$-algebras}
-Let $X$ be a set.  Let $\Omega$ be any subset of $\mathcal{P}(X)$ satisfying the following conditions:
-\begin{itemize}
-    \item $X\in\Omega_{X}$
-    \item For each $E\in\Omega$, $X\backslash E\in\Omega_{X}$
-    \item For any index $I: \mathbb{N}\rightarrow\Omega_{X}$, $(\cup_{n\in\mathbb{N}}I(n))\in\Omega_{X}$
-\end{itemize} $\Omega$ is called a $\sigma$\textit{-algebra} on $X$, the pair $(X,\Omega_{X})$ a \textit{measurable space}, the elements of $\Omega_{X}$ the \textit{measurable subsets} of $X$.  
+\subsection{Problem 1 - Orin Gotchey}
+\begin{lemma}{Existence of Borel Algebras.}
+	Let $X$ be a topological space.  Then there exists a unique $\sigma$-algebra, $\Omega$ on $X$ which contains all open subsets of $X$ and which is smallest with respect to inclusion. 
+\end{lemma}
+\begin{proof}
+	Let $\Sigma$ be the collection of all $\sigma$-algebras on $X$ which contain all open subsets of $X$.  $\Sigma$ contains $\mathcal{P}(X)$, and thus is nonempty.	Let
+	\begin{equation*}
+	\Omega := \cap_{x\in\Sigma}x
+	\end{equation*}
+	Clearly, $X\in\Omega$. Given an index $I: \mathbb{N}\rightarrow\Omega$, such that for every natural $n$, $I(n)\in\Omega$, we have that $I(n)\in{x},\;\forall{x}\in\Sigma$, whence it follows that $\cap_{n\in\mathbb{N}}I(n)\in{x},\;\forall{x}\in\Sigma$.  Therefore, $\cap_{n\in\mathbb{N}}I(n)\in{\Omega}$.  By a similar argument, for any $E\in\Omega$, $X\backslash{E}\in\Omega$.  Thus, $\Omega$ contains all open subsets of $X$, and is indeed inferior to any other $\sigma$-algebra with this property.  
+\end{proof}
+\begin{definition}
+	A \textit{complex *-algebra} $A$ is a complex algebra, equipped with a complex-antilinear operation $*:A\rightarrow{A}$ obeying the following:
+	\begin{equation*}
+		(ab)^* = b^*a^*
+	\end{equation*}
+	\begin{equation*}
+		1^* = 1
+	\end{equation*}
+	\begin{equation*}
+		(a^*)^* = a
+	\end{equation*}
 \end{definition}
-It follows immediately that $\varnothing\in\Omega_{X}$, and that $\Omega_{X}$ is closed under countable intersection.\\
-\begin{definition}{Measurable Maps}The maps $f: X\rightarrow Y$ between measurable spaces which have the following property: 
-\begin{equation*}
-    \forall E\subset X: (f(E)\in\Sigma\implies E\in\Omega) 
-\end{equation*}
-are called \textit{measurable maps} or \textit{measurable functions}.
+\begin{definition}
+	A morphism $f: \calg\rightarrow{}\C$ is called "bounded" if it factors through some bounded subset of $\C$ \add{explanation of factoring} 
 \end{definition}
-Let $\texttt{Meas}$ be the category specified as follows:
-\begin{outline}
-    \1 Objects are the measurable spaces $(X,\Omega)$
-    \1 Morphisms are the measurable functions.
-\end{outline}
-Then, given any morphism $f: X\rightarrow{}Y$,
+\begin{proposition}
+	Together with morphisms: $f: A\rightarrow{B}$ satisfying $f(a^*) = f(a)^*$, and objects: commutative complex *-algebras, $\calg$ is a category.
+\end{proposition}
+	Let $\textsf{L}^\infty: \textsf{PreEMS}^{op}\rightarrow{\calg}$ send an enhanced measurable space to the complex *-algebra of bounded morphisms: $(X,\Omega_X,N_X) \mapsto (\linf(X): \{\phi: (X,\Omega_X,N_X)\rightarrow(\C,\Omega_\C, \{\varnothing\})|\,\phi\,\text{bounded}\})$, and which sends an enhanced measurable morphism $f: (X,\Omega_X,N_X)\rightarrow{}(Y,\Omega_Y,N_Y)$ to \begin{equation*}
+\textsf{L}^\infty(f) : (\linf(Y) : \{\phi:(Y,\Omega_Y,N_Y)\rightarrow(\C,\Omega_{\C},N_\C)\})\rightarrow{}(\linf(X) : \{\psi : (X,\Omega_X,N_X)\rightarrow(\C,\Omega_\C,N_\C)\})
+	\end{equation*}
+given by:
 \begin{equation*}
-    f\circ\texttt{Id}_X = f
+	(\linf(f))(\phi) = (\phi\circ{}f)
 \end{equation*}
-\begin{equation*}
-    \texttt{Id}_Y\circ{}f = f
-\end{equation*}
-Associativity follows from the fact that the composition of functions on the underlying sets is associative.\\Given two composable morphisms, say $f: X\rightarrow{}Y$ and $g:Y\rightarrow{}Z$, consider the composition $g\circ f: X\rightarrow{}Z$, and let $\gamma\in\Omega_{Z}$.  Then:
-\begin{equation*}
-    g^{-1}(\gamma) \in \Omega_{Y}
-\end{equation*}
-\begin{equation*}
-    f^{-1}(g^{-1}(\gamma)) = (g\circ f)^{-1}(\gamma) \in\Omega_{X}
-\end{equation*}.
-Thus, we have that \texttt{Meas} is a category.
-
-\subsubsection{Enhanced Measurable Spaces}
-Let $(X,\Omega_X)$ be a topological space.  Then $\mathcal{P}(X)$ forms a Boolean commutative ring with the operations $\cap$ and $\triangle$ as multiplication and addition, respectively, and of which $\Omega_X$ is a subring.
-Define an \textit{enhanced measurable space} as a triple $(X,\Omega_X,N_X)$, where $(X,\Omega_X)$ form a measurable space, and $N_X$ is a $\sigma$-ideal of $\Omega_{X}$ (recall: a $\sigma$-\textit{ideal} is an ideal which is closed under \textit{countable} addition).  A \textit{negligible set} in $X$ is some subset of $N_{X}$.\\The \textit{measurable maps} $f: (X,\Omega_X, N_X)\rightarrow(Y,\Omega_Y,N_Y)$ are maps of sets: $f: X_f\rightarrow{}Y$, where $X_f\subset{}X$, such that $f$ obeys the following conditions (which are verified for the identity maps in the subpoints where $X=Y$):
-\begin{enumerate}
-\item The set $X\backslash{}X_f$ is negligible
-\begin{itemize}\item $X=X_{\texttt{Id}_X}$ and $X\backslash{}X_{\texttt{Id}_X}=\varnothing\in{}N_X$, by definition of ideal. \end{itemize}
-\item For any $m_{y}\in\Omega_Y$, there exists a set $m_{x}$ such that $f^{-1}(m_y)\triangle{}m_x$ is negligible
-\begin{itemize}\item Given $m_{x}$, $\texttt{Id}^{-1}_X(m_x)\triangle{}m_X = m_x\triangle{}m_x = \varnothing\in{}N_X$ \end{itemize}
-\item For any $n_y\in N_Y$, the set $f^{-1}(n_y)$ is negligible.
-\begin{itemize} \item $\texttt{Id}_X(n_x) = n_x$ \end{itemize}
-\end{enumerate}
-We cannot define composition of morphisms strictly as composition of underlying maps, because there is no guarantee, e.g., for two maps between enhanced measurable spaces $f:X\rightarrow{}Y,\,g:Y\rightarrow{}Z$, that $\textit{Im}f\subset{}Y_g$.  Thus, we restrict the domain of the composition to:
-\begin{equation*}
-     X_{g\circ{}f} := f^{-1}(Y_g)
-\end{equation*}.
-However, it is clear by inspection that composition of morphisms retains associativity.
-Then,
-\begin{equation*}
-    X\backslash{}X_{g\circ{}f} = X\backslash{}f^{-1}(Y_g) = (f^{-1}(Y\backslash(Y_g)))
-\end{equation*}
-The negligibility of the above quantity then follows from the definition of $f$.\\
-Furthermore, given $m_z\in\Omega_Z$, we have that $(g\circ{}f)^{-1}(m_z) = f^{-1}(g^{-1}(m_z))$.  Since $g$ is measurable (\textit{why?}) and since $f$ is presumed to satisfy (2), $g\circ{}f$ satisfies (2).\\(3) is clearly transitive.\\Thus, enhanced measurable spaces and measurable maps form a category.
-\subsubsection{Equality Almost Everywhere}
-Two parallel morphisms $f,g: (X,\Omega_X, N_X)\rightarrow{}(Y,\Omega_Y,N_Y)$ are "equal almost everywhere" if the set $\{x\in X_f\cap{}X_G : f(x)\neq{}g(x)\}$ is negligible.  Let "$f$ and $g$ are equal almost everywhere" be denoted $f\sim{}g$.  Claim: $\sim$ defines an equivalence relation.
+To show:
 \begin{itemize}
-    \item Reflexivity: A function differs from itself on the empty set ($\varnothing$), which is negligible (see above)
-    \item Symmetry: Note that the symbols $f$ and $g$ in the definition of equality almost everywhere are symmetric
-    \item Transitivity: If $f\sim{}g$ and $g\sim{}h$ for parallel morphisms $f,g,$ and $h$, then 
-    \begin{equation*}
-    \{x\in X_f\cap{}X_h:f(x)\neq h(x)\}\subset{}(\{x\in X_f\cap{}X_g: f(x)\neq g(x)\}\cup{}\{x\in{}X_g\cap{}X_h: g(x)\neq{}h(x)\})
-    \end{equation*}, and $N$ is closed under countable unions and taking subsets, so the left hand side of the above is negligible.
+	\item $\linf(f)$ defines a morphism in $\calg$
+	\item $\linf$ respects identity
+	\item $\linf$ respects composition
 \end{itemize}
-Furthermore, this equivalence relation is compatible with composition.  Assume that there are morphisms $f,f': X\rightarrow{}Y$ and $g,g': Y\rightarrow{}Z$. such that $f\sim{}f'$ and $g\sim{}g'$.  We're interested in the set
-\begin{multline*}
-    \{ x\in{}X_{g\circ{}f}\cap X_{g'\circ{}f'} : (g\circ{}f)(x)\neq(g'\circ{}f')(x) \} \subset{} \{x\in{}X_f\cap{}X_{f'} : f(x)\neq{}f'(x)\}\\ \cup{}f^{-1}(\{y\in{}Y_g\cap{}Y_g': g(y)\neq{}g'(y)\})
-\end{multline*}
-This set is the union of two negligible sets.
-\subsubsection{Hom-sets mod an Equivalence Relation}
-Suppose that for every pair of objects $X,Y$ in a category $C$, we are given (e.g. by the above) an equivalence relation $R_{X,Y}$ on $C(X,Y)$ that is compatible with composition (i.e. if $f\sim_Rf'$ and $g\sim_Rg'$ then $(g\circ{}f)\sim_R(g'\circ{}f')$.  We identify all morphisms in $C$ between any two objects $X$ and $Y$ which relate through $R_{X,Y}$.  Composition of equivalence classes of $\sim{}$ does not depend on choice of representative: this is exactly compatibility with $\circ{}$\\Verifying that the proper morphisms are unital and associative are gifted as simple exercises to the reader ;)
-
-
-
-\subsection{Problem 6 - Alan Bohnert}
-\subsubsection{Question}
-Fix a category \textbf{C}. 
-A \textit{bimorphism} in \textbf{C} is a morphism $f$ that is simultaneously a monomorphsim and an epimorphism. Is any isomorphism a bimorphism? 
-Give and example of a category \textbf{C} and a bimorphism $f$ in \textbf{C} that is not an isomorphism.
-
-\subsubsection{Solution}
-In any category \textbf{C} every isomorphism is a bimorphism.
-
-\begin{proof}
-    Let $f:X\xrightarrow{}Y$ be an isomorphism in \textbf{C}. 
-    Then there exists a morphism $g:Y\xrightarrow{}X$ in \textbf{C} such that 
-    \begin{center}
-        $gf=$Id$_X$ and $fg=$Id$_Y$.
-    \end{center}
-    
-    To show $f$ is a monomorphism let $h,k:W \rightrightarrows X$ and $fh=fk$.
-    It follows that $gfh=gfk$ for the $g$ given above.
-    Therefore Id$_X h=$Id$_X k$ and so $h=k$ tells us $f$ is a monomorphism.
-    
-    To show $f$ is an epimorphism let $m,n:Y \rightrightarrows Z$ and $mf=nf$.
-    Composing with the $g$ we know $mfg=nfg$.
-    Consequently $m$Id$_Y=n$Id$_Y$ and $m=n$ tells us $f$ is an epimorphism.
-    Therefore $f$ is a bimorphism.
-\end{proof}
-
-\vspace{2mm}
-
-\noindent Let \textbf{C} be the category \textbf{Ring} and let $f:\Z \xhookrightarrow[]{} \Q$ the inclusion map.
-We claim $f$ is a bimorphism but not an isomorphism.
-
-\begin{proof}
-    To show $f$ is a monomorphism let $h,k:W \rightrightarrows \Z$ and $f\circ h(w)=f \circ k (w)$ $\forall w\in W$.
-    Since $f$ is injective
-    \begin{center}
-        $h(w)=f\circ h(w)=f\circ k(w)=k(w)$.
-    \end{center}
-    Therefore $h(w)=k(w)$ and $f$ is a monomorphism.
-    
-    To show $f$ is an epimorphism let $m,n:\Q \rightrightarrows S$ such that $m\circ f(x)=n\circ f(x)$ $\forall x\in \Q$.
-    Since $f$ is injective, we know $m(z)=n(z)$ $\forall z\in\Z$.
-    Seeking a contraction, suppose there exists $\frac{a}{b}\in \Q$ such that $m(\frac{a}{b})\neq n(\frac{a}{b})$.
-    Given $m$ and $n$ are ring homomorphisms we know
-    \begin{center}
-        $m(a)m(b^{-1})=m(\frac{a}{b}) \neq n(\frac{a}{b})=n(a)n(b^{-1})$.
-    \end{center}
-    Given $b$ is an invertible integer and $m(b)=n(b)$ we can multiply on the right and retain the inequality.
-    Thus, 
-    \begin{center}
-        $m(a)m(b^{-1})m(b)\neq n(a)n(b^{-1})n(b)$
-    \end{center} 
-    and as ring homomorphisms we have
-    \begin{center}
-        $m(a)=m(a)m(b^{-1}b)\neq n(a)n(b^{-1}b)=n(a)$.
-    \end{center}
-    Therefore $f$ is a epimorphism.
-    
-    To show $f$ is not an isomorphism we note $\frac{1}{3}\in \Q$ has no preimage in $\Z$.
-\end{proof}
 \end{document}
