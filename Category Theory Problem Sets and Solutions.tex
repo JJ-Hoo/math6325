@@ -215,8 +215,8 @@
 	\item Problem 6 - Emilio
 \end{itemize}
 \subsection{Problem 1 - Orin Gotchey}
-\begin{lemma}{Existence of Borel Algebras.}
-	Let $X$ be a topological space.  Then there exists a unique $\sigma$-algebra, $\Omega$ on $X$ which contains all open subsets of $X$ and which is smallest with respect to inclusion. 
+\begin{lemma}{Existence and Uniqueness of Borel $\sigma$-Algebras.}
+	Let $X$ be a topological space.  Then there exists a unique $\sigma$-algebra, $\Omega$ on $X$ which contains all open subsets of $X$ and which is the smallest among such $\sigma$-algebras with respect to inclusion. 
 \end{lemma}
 \begin{proof}
 	Let $\Sigma$ be the collection of all $\sigma$-algebras on $X$ which contain all open subsets of $X$.  $\Sigma$ contains $\mathcal{P}(X)$, and thus is nonempty.	Let
@@ -238,11 +238,31 @@
 	\end{equation*}
 \end{definition}
 \begin{definition}
-	A morphism $f: \calg\rightarrow{}\C$ is called "bounded" if it factors through some bounded subset of $\C$ \add{explanation of factoring} 
+	A complex-valued morphism $f: X\rightarrow{}\C$ (on some topological space $X$) is called "bounded" if it factors through some bounded subset of $\C$.  That is, there exists some subset $C\in\C$ which is contained in some open ball, and some map $\bar{f}$ which makes the following diagram commute:
 \end{definition}
+\begin{center}
+\begin{tikzcd}
+	X \arrow[r,"f"] \arrow[d,"\bar{f}",dashed,swap] & \C \\
+	C \arrow[ur,"\iota",swap]
+\end{tikzcd}
+\end{center}
+\begin{lemma}
+	Given an enhance measurable set $(X,\Omega_X,N_X)$, the set of all bounded morphisms $\{f: (X,\Omega_X,N_X)\rightarrow{}(\C,\Omega_C,\{\varnothing\})\}$ is a complex *-algebra.
+\end{lemma}
+\begin{proof}
+	The zero morphism $0_X$ acts as the additive identity.  Addition, multiplication, and involution are pointwise.  Everything else follows by inspection.
+\end{proof}
 \begin{proposition}
-	Together with morphisms: $f: A\rightarrow{B}$ satisfying $f(a^*) = f(a)^*$, and objects: commutative complex *-algebras, $\calg$ is a category.
+	Together with complex algebra homomorphisms: $f: A\rightarrow{B}$ satisfying $f(a^*) = f(a)^*$, and objects: commutative complex *-algebras, $\calg$ is a category.
 \end{proposition}
+\begin{proof}
+	Let $\forall a,b,c\in\textsf{Obj}(\calg),\;f\in\calg(a,b),\;g\in\calg(b,c)$ then:
+	\begin{itemize}
+		\item $\exists \texttt{id}_{a}:a\rightarrow{a}$ given by $\texttt{id}_a(x)=x$ satisfies $\texttt{id}_a(x^*) = x^* = \texttt{id}_a(x)^*$, and which is clearly a $\C$-algebra homomorphism
+		\item $g\circ{f}$ satisfies $(g\circ{f})(x)^* = g(f(x))^* = g(f(x)^*) = g(f(x^*)) = g\circ{f}(x^*)$, and is clearly a $\C$-algebra homomorphism.
+		\item The composition of underlying sets is associative.
+	\end{itemize}
+\end{proof}
 	Let $\textsf{L}^\infty: \textsf{PreEMS}^{op}\rightarrow{\calg}$ send an enhanced measurable space to the complex *-algebra of bounded morphisms: $(X,\Omega_X,N_X) \mapsto (\linf(X): \{\phi: (X,\Omega_X,N_X)\rightarrow(\C,\Omega_\C, \{\varnothing\})|\,\phi\,\text{bounded}\})$, and which sends an enhanced measurable morphism $f: (X,\Omega_X,N_X)\rightarrow{}(Y,\Omega_Y,N_Y)$ to \begin{equation*}
 \textsf{L}^\infty(f) : (\linf(Y) : \{\phi:(Y,\Omega_Y,N_Y)\rightarrow(\C,\Omega_{\C},N_\C)\})\rightarrow{}(\linf(X) : \{\psi : (X,\Omega_X,N_X)\rightarrow(\C,\Omega_\C,N_\C)\})
 	\end{equation*}
@@ -250,10 +270,39 @@ given by:
 \begin{equation*}
 	(\linf(f))(\phi) = (\phi\circ{}f)
 \end{equation*}
-To show:
-\begin{itemize}
-	\item $\linf(f)$ defines a morphism in $\calg$
+\begin{proposition}
+	$\linf$ is a contravariant functor
+\end{proposition}
+\begin{proof} We need to show the following:
+\begin{enumerate}
+	\item $\linf(f)$ defines a morphism in $\calg$ i.e. a complex algebra homomorphism which respects involution.
 	\item $\linf$ respects identity
 	\item $\linf$ respects composition
-\end{itemize}
+\end{enumerate}
+For (1), given an $f: X\rightarrow{Y}$, $\phi,\;\psi\in\linf(Y)$, and $c\in\C$
+\begin{equation}
+\begin{split}
+	&\linf(f) : \linf(Y)\rightarrow{}\linf(X)\\
+	&\linf(f)(0_Y) = 0_X\\
+	&\linf(f)(\phi+\psi) = (\phi+\psi)\circ(f) = (\phi\circ{f}) + (\psi\circ{f}) = \linf(f) (\phi) + \linf(f)(\psi)\\
+	&\linf(f)(\phi\cdot\psi) = (\phi\cdot\psi)\circ{f} = (\phi\circ{f})\cdot(\psi\circ{f}) = \linf(f)(\phi)\cdot\linf(f)(\psi)\\
+	&c\cdot\linf(f)(\phi) = c\cdot(\phi\circ{f}) = (c\cdot\phi)\circ{f} = \linf(f)(c\cdot\phi)\\
+	&\linf(f)(\phi^*) = (\phi^*)\circ{f} = (\phi\circ{f})^* = \linf(f)(\phi)^*
+\end{split}
+\end{equation}
+For (2),
+\begin{equation}
+	\linf(\texttt{id}_X)(\phi) = (\phi\circ\texttt{id}_X) = \phi \implies \linf(\texttt{id}_X) = \texttt{id}_{\linf(X)} 
+\end{equation}
+For (3), we give two morphisms $f: X\rightarrow Y\;,g:Y\rightarrow Z$ in $\preems$.  Then for any $\phi\in\linf(Z)$
+\begin{equation}
+	\linf(g\circ{}f)(\phi) = \phi\circ(g\circ{f}) = (\phi\circ{g})\circ{f} = \linf(f)(\phi\circ{g}) = \linf(f)(\linf(g)(\phi)) = (\linf(f)\circ{}\linf(g))(\phi)
+\end{equation}
+\end{proof}
+\begin{lemma}
+	Let $\textsf{C}$ be a category with an equivalence relation $R$ on its set of morphisms, and let $F$ be some functor from $\textsf{C}/R$ to another category $\textsf{D}$.  Then precomposing with the functor $\textsf{C}\xrightarrow{\Pi}\textsf{C}/R$ gives a bijection between functors $\textsf{C}/R\xrightarrow{F}\textsf{D}$ and functors $\textsf{C}\xrightarrow{G}\textsf{D}$ with the property that $\alpha\sim_R\beta\Rightarrow{}G(\alpha) = G(\beta)$
+\end{lemma}
+\begin{proof}
+	If $\alpha\sim_R\beta$, then $\Pi(\alpha)=\Pi(\beta)$, so $(F\circ\Pi)(\alpha) = (F\circ\Pi)(\beta)$.  For the other direction, let $G:\textsf{C}\rightarrow{\textsf{D}}$ and $R$ be given as above.  Then, let $F: \textsf{C}/R\rightarrow{D}$ be identical to $G$ on objects, and let the image of an equivalence class of morhpisms in $\textsf{C}/R$ be the image of any of its representatives under $G$.  This is well-defined, because any two morphisms in the same equivalence class of $R$ will have the same image under $G$.
+\end{proof}
 \end{document}
