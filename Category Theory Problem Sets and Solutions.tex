@@ -43,6 +43,7 @@
 \DeclareMathOperator{\calg}{\textsf{CAlg}^{*}_{\mathbb{C}}}
 \DeclareMathOperator{\linf}{L^\infty}
 \DeclareMathOperator{\preems}{\textsf{PreEMS}}
+\DeclareMathOperator{\strictems}{\textsf{StrictEMS}}
 
 \title{Category Theory Problem Sets and Solutions}
 \author{Fall 2022}
@@ -307,4 +308,17 @@ For (3), we give two morphisms $f: X\rightarrow Y\;,g:Y\rightarrow Z$ in $\preem
 \begin{proof}
 	If $\alpha\sim_R\beta$, then $\Pi(\alpha)=\Pi(\beta)$, so $(F\circ\Pi)(\alpha) = (F\circ\Pi)(\beta)$.  For the other direction, let $G:\textsf{C}\rightarrow{\textsf{D}}$ and $R$ be given as above.  Then, let $F: \textsf{C}/R\rightarrow{D}$ be identical to $G$ on objects, and let the image of an equivalence class of morhpisms in $\textsf{C}/R$ be the image of any of its representatives under $G$.  This is well-defined, because any two morphisms in the same equivalence class of $R$ will have the same image under $G$.
 \end{proof}
+\begin{definition}
+	Let R be an equivalence relation defined on the $\textsf{Hom}$-sets of $\preems$.  Define the category $\strictems$, whose objects are the same as $\preems$, and whose morphisms are equivalence classes of morphisms under $R$ sharing domain and codomain.
+\end{definition}
+It follows from the foregoing observations that $\strictems$ is, in fact, a category.  Extend the $\linf$ to a functor from $\strictems$ to $\calg$ as follows:
+\begin{itemize}
+	\item Send an EMS $(X,\Omega_X, N_X)$ to the set of \textit{equivalence classes} of bounded morphisms from $X$ to $(\C, \Omega_{\C}, \{\varnothing\})$ (here $\Omega_{\C}$ denotes the Borel sets of $\C$).
+	\item Send an equivalence class of morphisms 
+\end{itemize}
+\section{Other Problems}
+\begin{itemize}
+	\item For which pairs of fields (of the same characteristic) does a categorical product exist?
+	\item Prove that the category of connected topological spaces does not have a product.
+\end{itemize}
 \end{document}
