@@ -44,6 +44,8 @@
 \DeclareMathOperator{\linf}{L^\infty}
 \DeclareMathOperator{\preems}{\textsf{PreEMS}}
 \DeclareMathOperator{\strictems}{\textsf{StrictEMS}}
+\DeclareMathOperator{\banop}{\textsf{Ban}^{op}}
+\DeclareMathOperator{\ball}{\textsf{Ball}}
 
 \title{Category Theory Problem Sets and Solutions}
 \author{Fall 2022}
@@ -313,8 +315,36 @@ For (3), we give two morphisms $f: X\rightarrow Y\;,g:Y\rightarrow Z$ in $\preem
 \end{definition}
 It follows from the foregoing observations that $\strictems$ is, in fact, a category.  Extend the $\linf$ to a functor from $\strictems$ to $\calg$ as follows:
 \begin{itemize}
-	\item Send an EMS $(X,\Omega_X, N_X)$ to the set of \textit{equivalence classes} of bounded morphisms from $X$ to $(\C, \Omega_{\C}, \{\varnothing\})$ (here $\Omega_{\C}$ denotes the Borel sets of $\C$).
-	\item Send an equivalence class of morphisms to your grandmother as a gift for her birthday
+	\item Send an enhanced measurable space $(X,\Omega_X,N_X)$ to the complex *-algebra of bounded morphisms from $X$ to $\C$
+	\item Given a morphism $f: X\rightarrow{Y}$, consider the equivalence class of $f$ in $\strictems$.  
+\end{itemize}
+\subsection{Problem 4 - Alan}
+\subsubsection{Construct a functor $\textsf{Ban}^{op}$ to $\textsf{Ball}$}
+Objects in $\textsf{Ban}^{op}$ are real (or complex) vector spaces with norms, and morphisms are $\R$ (or $\C$) linear maps:
+\begin{equation*}
+(X,\|\cdot\|_X)\xrightarrow{f}(Y,\|\cdot\|_Y)
+\end{equation*}
+such that for all $x\in X$, $\|f(x)\|_Y\leq\|x\|_X$\\
+Objects in $\textsf{Ball}$ are pairs $(V,B)$ where $V$ is a Hausdorff, locally convex topological real (complex) vector space, and $B$ a compact, convex, Hausdorff topological vector subspace of V, which is balanced.  Here, "balanced" means:
+\begin{equation*}
+0\in B\wedge\forall x\in B \forall\;t\in\R (|t|\leq 1\implies tx\in B)
+\end{equation*}
+For a given object $(X,\|\cdot\|_X)$ in $\textsf{Ban}^{op}$, $X^*$ denotes the space of continuous linear functionals on $X$ with the weak-$*$ topology and $X^*_{\leq1}$ denotes the subspace of $X^*$ consisting of functionals of norm at most $1$. $(X^*,X^*_{\leq1})$ is an object of $\textsf{Ball}$.
+Let $F: \banop\rightarrow\ball$ be the functor which sends $(X,\|\cdot\|_X)$ to $(X^*,X^*_\leq{1})$ and sends a morphism $g$ from $X\rightarrow{Y}$ to $ X^*\rightarrow{Y^*}$ to $F(g) = \-\circ{g}$.  The functor $F$ is encoded in the following commutative diagram:
+\begin{center}
+\begin{tikzcd}
+{(X,\|\cdot\|_X)} \arrow[dd, "g"']                &  & {(X^*,X^*_{\leq1})}                                        \\
+{} \arrow[rr, "F(g) = -\circ{g}"', maps to]       &  & {}                                                         \\
+{(Y,\|\cdot\|_Y)} \arrow[dd, "h"']                &  & {(Y^*,Y^*_{\leq1})} \arrow[uu, "F(g)(y^*) = y^*\circ{g}"'] \\
+{} \arrow[rr, "F(h) = -\circ{h}"', maps to]  &  &   {}                                                         \\
+{(Z,\|\cdot\|_Z)}  &  & {(Z^*,Z^*_{\leq{1}})} \arrow[uu, "F(h)(x^*)=x^*\circ{h}"']  
+\end{tikzcd}
+\end{center}
+From this diagram, we can verify
+\begin{itemize}
+	\item That $F(g)$ is actually a morphism in $\ball$
+	\item $F$ is functorial
+	\item $F$ is unital
 \end{itemize}
 \section{Problem Set 3}
 \begin{enumerate}
