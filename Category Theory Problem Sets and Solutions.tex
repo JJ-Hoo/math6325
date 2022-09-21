@@ -216,7 +216,7 @@
 	\item Problem 2 - James
 	\item Problem 3 - Bradley
 	\item Problem 4 - Alan
-	\item Problem 5 - James
+	\item Problem 5 - Mason
 	\item Problem 6 - Emilio
 \end{itemize}
 \subsection{Problem 1 - Orin Gotchey}
@@ -363,8 +363,8 @@ From this diagram, we can verify
 \end{enumerate}
 \subsection*{Assignments}
 \begin{itemize}
-	\item Problem 1 - Unassigned
-	\item Problem 2 - Unassigned
+	\item Problem 1 - Orin
+	\item Problem 2 - Orin
 	\item Problem 3 - Unassigned
 	\item Problem 4 - JJ
 	\item Problem 5 - Orin
@@ -372,4 +372,28 @@ From this diagram, we can verify
 	\item Problem 7 - Unassigned
 	\item Problem 8 - Unassigned
 \end{itemize}
+\subsection{Problem 1 - Orin}
+\begin{lemma}
+	Any non-trivial field homomorphism is injective
+\end{lemma}
+\begin{proof}
+	Let $f: K\rightarrow{S}$ be a field homomorphism which is not injective.  That is, there exists a nonzero $s\in S$ such that $f(s)=0$.  But then for any $b\in S$ we have: $$f(b) = f(b)f(1)=f(b)f(s\cdot{s^{-1}})=f(b)f(s)f(s^{-1})=0$$, so $f$ is trivial.
+\end{proof}
+\begin{proposition}
+	The only nontrivial pairs in the category \textsf{Field} of fields for which the categorical product exists are those which are isomorphic
+\end{proposition}
+\begin{proof}
+	Imagine there are two nontrivial fields $F_1$ and $F_2$ which have a product $F:=F_1\times F_2$.  Claim: the projection map $\pi_1: F\rightarrow{}F_1$ must be surjective. Let $h: F_1\rightarrow{F}$ be the unique homomorphism into the product $F$ given by $(0,id_{F_1})$, where in this case $0$ is the trivial field homomorphism from $F_1$ to $F_2$.  But by construction $h$ must satisfy:
+	$$ \pi_1\circ{h} = id_{F_1}$$.  Now, for any other field $K$ and field homomorphisms $g_1,g_2: F_1\rightarrow{K}$ which satisfy $g_1\circ{\pi_1} = g_2\circ{\pi_2}$, we have: $$g_1\circ{\pi_1}\circ{h} = g_2\circ{\pi_1}\circ{h}$$ $$g_1 = g_2$$, so $\pi_1$ must be an epimorphism, and since morphisms in \textsf{Field} are maps of underlying sets, $\pi_1$ must be surjective (and so too must $\pi_2$, by a symmetric argument).  But then $\pi_1$ and $\pi_2$ are both field homomorphisms which are surjective, so they are in fact both field isomorphisms, which gives $F_1\cong F_2$
+\end{proof}
+\subsection{Problem 2 - Orin}
+\begin{proposition}
+	The category of connected topological spaces with continuous maps has no coproduct
+\end{proposition}
+\begin{proof}
+	The coproduct, if it existed, would have to be isomorphic to the coproduct in the category of regular topological spaces, which are disjoint unions of sets.  But no disjoint union of sets is connected.  Take a family of topological spaces $X_\alpha$ over some index set $A$.  Then consider the coproduct: $X := \coprod(X_\alpha)_{\alpha\in A}$ together with the inclusion maps: $$\iota_\alpha: X_\alpha\to X$$.  For any $\alpha\in A$, it becomes clear that:
+	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cup \iota_\alpha(X_\alpha) = X$$ and
+	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cap \iota_\alpha(X_\alpha) = \varnothing$$.  Furthermore, a set in $X$ is open iff it's preimage under every $\iota_\alpha$ is open.  If $\omega$ is any given element in $A$, then
+	$$\iota_\omega^*(\cup_{\alpha\in A}X_\alpha)=X_\omega$$. Since the $X_\alpha$ are all open in their respective topologies, we have in particular that $\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta))$ is open, so we have a separation of $X$ the proof is complete.
+\end{proof}
 \end{document}
