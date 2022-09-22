@@ -315,8 +315,8 @@ For (3), we give two morphisms $f: X\rightarrow Y\;,g:Y\rightarrow Z$ in $\preem
 \end{definition}
 It follows from the foregoing observations that $\strictems$ is, in fact, a category.  Extend the $\linf$ to a functor from $\strictems$ to $\calg$ as follows:
 \begin{itemize}
-	\item Send an enhanced measurable space $(X,\Omega_X,N_X)$ to the complex *-algebra of bounded morphisms from $X$ to $\C$
-	\item Given a morphism $f: X\rightarrow{Y}$, consider the equivalence class of $f$ in $\strictems$.  
+	\item Send an enhanced measurable space $(X,\Omega_X,N_X)$ to the complex *-algebra of equivalence classes of bounded morphisms from $X$ to $\C$
+	\item Send a morphism in $\strictems$ between two EMS $X$ and $Y$ to the morphism from $\linf(X)$ to $\linf(Y)$ which precomposes just like the above functor.  The fact that this is well-defined, and indeed is a morphism in the target category follows from the above lemma.
 \end{itemize}
 \subsection{Problem 4 - Alan}
 \subsubsection{Construct a functor $\textsf{Ban}^{op}$ to $\textsf{Ball}$}
@@ -394,6 +394,6 @@ From this diagram, we can verify
 	The coproduct, if it existed, would have to be isomorphic to the coproduct in the category of regular topological spaces, which are disjoint unions of sets.  But no disjoint union of sets is connected.  Take a family of topological spaces $X_\alpha$ over some index set $A$.  Then consider the coproduct: $X := \coprod(X_\alpha)_{\alpha\in A}$ together with the inclusion maps: $$\iota_\alpha: X_\alpha\to X$$.  For any $\alpha\in A$, it becomes clear that:
 	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cup \iota_\alpha(X_\alpha) = X$$ and
 	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cap \iota_\alpha(X_\alpha) = \varnothing$$.  Furthermore, a set in $X$ is open iff it's preimage under every $\iota_\alpha$ is open.  If $\omega$ is any given element in $A$, then
-	$$\iota_\omega^*(\cup_{\alpha\in A}X_\alpha)=X_\omega$$. Since the $X_\alpha$ are all open in their respective topologies, we have in particular that $\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta))$ is open, so we have a separation of $X$ the proof is complete.
+	$$\iota_\omega^*(\cup_{\alpha\in A}X_\alpha)=X_\omega$$. Since the $X_\alpha$ are all open in their respective topologies, we have in particular that $\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta))$ is open, so we have a separation of $X$ and the proof is complete.
 \end{proof}
 \end{document}
