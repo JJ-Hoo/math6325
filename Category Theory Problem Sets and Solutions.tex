@@ -318,6 +318,13 @@ It follows from the foregoing observations that $\strictems$ is, in fact, a cate
 	\item Send an enhanced measurable space $(X,\Omega_X,N_X)$ to the complex *-algebra of equivalence classes of bounded morphisms from $X$ to $\C$
 	\item Send a morphism in $\strictems$ between two EMS $X$ and $Y$ to the morphism from $\linf(X)$ to $\linf(Y)$ which precomposes just like the above functor.  The fact that this is well-defined, and indeed is a morphism in the target category follows from the above lemma.
 \end{itemize}
+Now, we come to a (perhaps surprising) result that equality almost everywhere is "too strong" for our functor $\linf$.
+\begin{proposition}
+	$\linf$ is not faithful
+\end{proposition}
+\begin{proof}
+	We begin by constructing an enhanced measurable space $X$, and an endomorphism $X\xrightarrow{f}X$, such that $f(x)\neq x$ for almost every $x\in X$, but for any measurable subset $E\subset X$, $f^*(E)\triangle E$ is negligible.
+\end{proof}
 \subsection{Problem 4 - Alan}
 \subsubsection{Construct a functor $\textsf{Ban}^{op}$ to $\textsf{Ball}$}
 Objects in $\textsf{Ban}^{op}$ are real (or complex) vector spaces with norms, and morphisms are $\R$ (or $\C$) linear maps:
@@ -362,7 +369,7 @@ From this diagram, we can verify
 \item Express limits in analysis (i.e., in a given metric space) as categorical limits
 \item Exhibit colimits of towers in $\textsf{Field}$
 \item Prove or disprove: Given a tower in $\textsf{Man}$ whose morphisms are open embeddings, the colimit exists.  Give an example of a tower in $\textsf{Man}$ without a colimit.
-\item Compute all natural transformations from $\textsf{Id}$ to $**$(double-dual) as endofunctors on $\textsf{Vect}_{\mathbb{k}}$
+\item Compute all natural transformations from $\textsf{Id}$ to $**$(double-dual) as endofunctors on $\textsf{Vect}_{\mathbb{k}}$ 	
 \end{enumerate}
 \subsection*{Assignments}
 \begin{itemize}
@@ -383,17 +390,11 @@ From this diagram, we can verify
 \begin{proof}
 	Let $f: K\rightarrow{S}$ be a field homomorphism which is not injective.  That is, there exists a nonzero $s\in S$ such that $f(s)=0$.  But then for any $b\in S$ we have: $$f(b) = f(b)f(1)=f(b)f(s\cdot{s^{-1}})=f(b)f(s)f(s^{-1})=0$$, so $f$ is trivial.  For the second statement, note that a nontrivial field homomorphism must send $1_{F_1}$ to $1_{F_2}$, and so must be an isomorphism of prime subfields.  Since field characteristic is an invariant on prime subfields, no nontrivial field homomorphisms exist between fields of different characteristic. 
 \end{proof}
-\begin{lemma}
-	Let $K$ be a field.  $K$ is equal to its prime subfield $K'$ iff the automorphism group $\textsf{Aut}(K)$ is trivial.
-\end{lemma}
-\begin{proof}
-	If $K=K'$, then any automorphism on $K$ is going to fix $K'$, so is just the identity on $K$.  Conversely, assume $K\neq K'$.  Pick any element $k\in K\setminus K'$.  Because of linear algebra, the linearly independent set $\{1,k\}$ can be extended into a $K'$-basis for $K$.
-\end{proof}
 \begin{proposition}
-	A nontrivial family $(F_\alpha)_{\alpha\in A}$ of fields in the category $\textsf{Field}$ (with field homomorphisms as morphisms) indexed by some set $A$ has a product iff all of the $F_\alpha$'s are isomorphic and have trivial automorphism groups. \\Now imagine that one has two fields $F_1$ and $F_2$ whose product $F$ exists and where $\pi_1(F)\subset F_1$ strictly includes the prime subfield of $F_1$
+	If $K$ and $L$ are fields such that their pairwise categorical product exists, then they have the same characteristic and both have trivial automorphism groups.
 \end{proposition}
 \begin{proof}
-	First, imagine that the product $$F:=\prod_{\alpha\in A}(F_\alpha)$$ exists.  This requries the existence of projection homomorphisms: $$\pi_\alpha: F\rightarrow F_\alpha$$, which in particular means that $F$ must have the same prime subfield as all of the $F_\alpha$'s (i.e. up to isomorphism).
+	The first part of the proof follows from the foregoing lemma.  For the second part, assume towards a contradiction that $K\times L$ exists and that one of the fields (denoted, WLOG, $K$) has a nontrivial automorphism.  Let $P$ denote the prime subfield of $K$ and $L$.  Then $P\xrightarrow{f_1}K$ and $P\xrightarrow{f_2}L$ give rise to another homomorphism $P\xrightarrow{f}K\times L$.  Consider the homomorphism $f': P\xrightarrow{f}K\times L$ given by $(\gamma\circ f_1)\times(f_2)$, where $\gamma$ is any non-trivial field automorphism on $K$.  By uniqueness, $f'\neq f$, but they must both yield $f_2$ when post-composed with $K\times L\xrightarrow{\pi_L}L$.  Thus, for some $x\in P$, $\pi_L\circ{(f-f')}(x)=0$ and $\pi_K\circ{(f-f')}(x)\neq 0$.  Then $(f-f')(x)\neq 0$, so there exists some $\frac{1}{(f-f')(x)}\in K\times L$, but $\pi_L (\frac{1}{(f-f')(x)}) = \frac{1}{0}$, contradiction.
 \end{proof}
 \subsection{Problem 2 - Orin}
 \begin{proposition}
