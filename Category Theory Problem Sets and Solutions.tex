@@ -353,6 +353,61 @@ From this diagram, we can verify
 	\item $F$ is functorial
 	\item $F$ is unital
 \end{itemize}
+
+\subsubsection{Construct a functor $\textsf{Ball}$ to $\textsf{Ban}^{op}$ }
+
+\subsubsection{Prove monomorphisms in $\textsf{Ban}^{op}$ are precisely the injective maps}
+
+\subsubsection{Prove epimorphisms in $\textsf{Ball}$ are precisely the surjective maps}
+
+\begin{proof}
+	
+	All surjective maps are by definition epimorphisms.
+	To prove the other direction we suppose $f$ is an epimorphism in $\textsf{Ball}$.
+	Let $h$ be the quotient map defined by $h:b \mapsto b+f(X)$ and $k$ be the quotient map defined by $k:b \mapsto 0+f(X)$. Then we have the following diagram.
+	
+	\begin{center}
+		\begin{tikzcd}
+			{(X,A)} \arrow["f"']{r} & {(Y,B)} \arrow[shift left=1ex, "h"]{r} \arrow[shift right=1ex, "k"']{r} & {(Y/f(X),B/f(X))}\\
+		\end{tikzcd}
+	\end{center}
+	
+	Letting $x\in X$ we see $h\circ f(x)= k\circ f(x)$.
+	Since $f$ is an epimorphism we have $h=k$ for all $y\in Y$.
+	So, $y\in f(X)$, every $y$ has an $f$ preimage, and consequently $f$ is surjective.
+	
+\end{proof}
+
+\subsubsection{Extension of a linear functional given an inclusion of Banach spaces}
+\paragraph{Assuming the functors defined above form an equivalence of categories, prove that given an inclusion of Banach spaces, any linear functional on A can be extended to a linear functional on B that has the same norm. You may use the fact that monomorphisms are precisely epimorphisms in the opposite category.}
+
+\begin{proof}
+	
+	Recalling the functor from $\textsf{Ban}^{op}$ to $\textsf{Ball}$ discussed in part 1, we apply the conditions of the question and have the resulting diagram.
+	
+	\begin{center}
+		\begin{tikzcd}
+			{(A,\|\cdot\|_X)} \arrow[hookrightarrow, "g"']{dd} &  & {(A^*,A^*_{\leq1})} \\
+			
+			{} \arrow[rr, "F(g) = -\circ{g}"', maps to] &  & {} \\
+			
+			{(B,\|\cdot\|_X)} &  & {(B^*,B^*_{\leq1})} \arrow[uu, "F(g)(b^*) = b^*\circ{g}"'] \\
+			
+		\end{tikzcd}
+	\end{center}
+	
+	By equivalence the morphism $F(g)$ is an epimorphism in $\textsf{Ball}$.
+	By part 4 this morphism is a surjective map.
+	So, for every $a^* \in (A^*,A^*_{\leq1})$ there exists a nonempty preimage in $(B^*,B^*_{\leq1})$.
+	Furthermore, $F(g)(b^*)=b*\circ{g}$ is a restriction of $b^*$ to $A$ since $g$ is the inclusion map and has norm $1$.
+	Therefore, for all $a^*\in (A^*,A^*_{\leq1})$ there exists $b^*\in (B^*,B^*_{\leq1})$ such that is an extension of $a^*$ to $B$, and
+	\begin{center}
+		$\|b^*\|\leq\|a^*\|=\|b^*\circ{g}\|\leq \|b^*\|\|g\|=\|b^*\|\times 1=\|b^*\|$.
+	\end{center}
+	Consequently the extension $b^*$ has the same norm as $a^*$.
+	
+\end{proof}
+
 \section{Problem Set 3}
 \begin{enumerate}
 	\item For which pairs of fields (of the same characteristic) does a categorical product exist?
