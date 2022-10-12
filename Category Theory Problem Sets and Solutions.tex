@@ -323,7 +323,8 @@ Now, we come to a (perhaps surprising) result that equality almost everywhere is
 	$\linf$ is not faithful
 \end{proposition}
 \begin{proof}
-	We begin by constructing an enhanced measurable space $X$, and an endomorphism $X\xrightarrow{f}X$, such that $f(x)\neq x$ for almost every $x\in X$, but for any measurable subset $E\subset X$, $f^*(E)\triangle E$ is negligible.
+	We begin by constructing an enhanced measurable space $X$, and an endomorphism $X\xrightarrow{f}X$, such that $f(x)\neq x$ for almost every $x\in X$, but for any measurable subset $E\subset X$, $f^*(E)\triangle E$ is negligible.  $\mathfrak{P}$  Let $\mathit{c} = \#(\R)$. Let $\mu$ be the usual product measure on $\{0,1\}^\mathit{c}$ $\mathfrak{Q}$
+	\add{Prove strict and weak equality a.e. are not the same}
 \end{proof}
 \subsection{Problem 4 - Alan}
 \subsubsection{Construct a functor $\textsf{Ban}^{op}$ to $\textsf{Ball}$}
@@ -432,7 +433,7 @@ From this diagram, we can verify
 	\item Problem 2 - Orin
 	\item Problem 3 - Alan
 	\item Problem 4 - JJ
-	\item Problem 5 - Orin
+	\item Problem 5 - Unassigned
 	\item Problem 6 - Unassigned
 	\item Problem 7 - Unassigned
 	\item Problem 8 - Unassigned
@@ -456,9 +457,18 @@ From this diagram, we can verify
 	The category of connected topological spaces with continuous maps has no coproduct
 \end{proposition}
 \begin{proof}
-	The coproduct, if it existed, would have to be isomorphic to the coproduct in the category of regular topological spaces, which are disjoint unions of sets.  But no disjoint union of sets is connected.  Take a family of topological spaces $X_\alpha$ over some index set $A$.  Then consider the coproduct: $X := \coprod(X_\alpha)_{\alpha\in A}$ together with the inclusion maps: $$\iota_\alpha: X_\alpha\to X$$.  For any $\alpha\in A$, it becomes clear that:
+	The coproduct, if it existed, would have to be preserved under the forgetful functor to the usual category of topological spaces.  The coproducts in this case would be disjoint unions of sets.  But no disjoint union of sets is connected.  Take a family of topological spaces $X_\alpha$ over some index set $A$.  Then consider the coproduct: $X := \coprod(X_\alpha)_{\alpha\in A}$ together with the inclusion maps: $$\iota_\alpha: X_\alpha\to X$$.  For any $\alpha\in A$, it becomes clear that:
 	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cup \iota_\alpha(X_\alpha) = X$$ and
 	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cap \iota_\alpha(X_\alpha) = \varnothing$$.  Furthermore, a set in $X$ is open iff it's preimage under every $\iota_\alpha$ is open.  If $\omega$ is any given element in $A$, then
 	$$\iota_\omega^*(\cup_{\alpha\in A}X_\alpha)=X_\omega$$. Since the $X_\alpha$ are all open in their respective topologies, we have in particular that $\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta))$ is open, so we have a separation of $X$ and the proof is complete.
 \end{proof}
+\section{Problem Set 4}
+\subsection{Assignments}
+\alert{Fix enumeration}
+\begin{enumerate}
+	\item \begin{itemize}[a.]
+		\item Show that if $M$ is a f.g. projective $R$-module for some comm. ring $R$, show that $$\textsf{Hom}(M,-)\dashv M\otimes_R -$$
+		\item Show that if $M$ is a (not necessarily f.g. and projective) $R$-module, then $\textsf{Hom}(M,-)$ does not preserve colimits in general
+	\end{itemize}
+\end{enumerate}
 \end{document}
