@@ -44,6 +44,7 @@
 \DeclareMathOperator{\linf}{L^\infty}
 \DeclareMathOperator{\preems}{\textsf{PreEMS}}
 \DeclareMathOperator{\strictems}{\textsf{StrictEMS}}
+\DeclareMathOperator{\ban}{\textsf{Ban}}
 \DeclareMathOperator{\banop}{\textsf{Ban}^{op}}
 \DeclareMathOperator{\ball}{\textsf{Ball}}
 
@@ -325,27 +326,32 @@ Now, we come to a (perhaps surprising) result that equality almost everywhere is
 \begin{proof}
 	We begin by constructing an enhanced measurable space $X$, and an endomorphism $X\xrightarrow{f}X$, such that $f(x)\neq x$ for almost every $x\in X$, but for any measurable subset $E\subset X$, $f^*(E)\triangle E$ is negligible.  The proof of this is far outside the scope of this work, see for example \cite{fremlin_2011} for more.
 \end{proof}
-\subsection{Problem 4 - Alan}
+
+\subsection{Problem 4 - Alan Bohnert}
+
 \subsubsection{Construct a functor $\textsf{Ban}^{op}$ to $\textsf{Ball}$}
 Objects in $\textsf{Ban}^{op}$ are real (or complex) vector spaces with norms, and morphisms are $\R$ (or $\C$) linear maps:
 \begin{equation*}
-(X,\|\cdot\|_X)\xrightarrow{f}(Y,\|\cdot\|_Y)
+	(X,\|\cdot\|_X)\xrightarrow{f}(Y,\|\cdot\|_Y)
 \end{equation*}
 such that for all $x\in X$, $\|f(x)\|_Y\leq\|x\|_X$\\
 Objects in $\textsf{Ball}$ are pairs $(V,B)$ where $V$ is a Hausdorff, locally convex topological real (complex) vector space, and $B$ a compact, convex, Hausdorff topological vector subspace of V, which is balanced.  Here, "balanced" means:
 \begin{equation*}
-0\in B\wedge\forall x\in B \forall\;t\in\R (|t|\leq 1\implies tx\in B)
+	0\in B\wedge\forall x\in B \forall\;t\in\R (|t|\leq 1\implies tx\in B)
 \end{equation*}
-For a given object $(X,\|\cdot\|_X)$ in $\textsf{Ban}^{op}$, $X^*$ denotes the space of continuous linear functionals on $X$ with the weak-$*$ topology and $X^*_{\leq1}$ denotes the subspace of $X^*$ consisting of functionals of norm at most $1$. $(X^*,X^*_{\leq1})$ is an object of $\textsf{Ball}$.
-Let $F: \banop\rightarrow\ball$ be the functor which sends $(X,\|\cdot\|_X)$ to $(X^*,X^*_\leq{1})$ and sends a morphism $g$ from $X\rightarrow{Y}$ to $ X^*\rightarrow{Y^*}$ to $F(g) = \-\circ{g}$.  The functor $F$ is encoded in the following commutative diagram:
+For a given object $(X,\|\cdot\|_X)$ in $\textsf{Ban}^{op}$, $X^*$ denotes the space of continuous linear functionals on $X$ with the weak-$*$ topology and $X^*_{\leq1}$ denotes the subspace of $X^*$ consisting of functionals of norm at most $1$. 
+$(X^*,X^*_{\leq1})$ is an object of $\textsf{Ball}$.
+Let $F: \banop\rightarrow\ball$ be the functor which sends $(X,\|\cdot\|_X)$ to $(X^*,X^*_\leq{1})$ and sends a morphism $g$ from $X\rightarrow{Y}$ to $ X^*\rightarrow{Y^*}$ to $F(g) = -\circ{g}$.
+The functor $F$ is encoded in the following commutative diagram:
+
 \begin{center}
-\begin{tikzcd}
-{(X,\|\cdot\|_X)} \arrow[dd, "g"']                &  & {(X^*,X^*_{\leq1})}                                        \\
-{} \arrow[rr, "F(g) = -\circ{g}"', maps to]       &  & {}                                                         \\
-{(Y,\|\cdot\|_Y)} \arrow[dd, "h"']                &  & {(Y^*,Y^*_{\leq1})} \arrow[uu, "F(g)(y^*) = y^*\circ{g}"'] \\
-{} \arrow[rr, "F(h) = -\circ{h}"', maps to]  &  &   {}                                                         \\
-{(Z,\|\cdot\|_Z)}  &  & {(Z^*,Z^*_{\leq{1}})} \arrow[uu, "F(h)(x^*)=x^*\circ{h}"']  
-\end{tikzcd}
+	\begin{tikzcd}
+		{(X,\|\cdot\|_X)} \arrow[dd, "g"']                &  & {(X^*,X^*_{\leq1})}                                        \\
+		{} \arrow[rr, "F(g) = -\circ{g}"', maps to]       &  & {}                                                         \\
+		{(Y,\|\cdot\|_Y)} \arrow[dd, "h"']                &  & {(Y^*,Y^*_{\leq1})} \arrow[uu, "F(g)(y^*) = y^*\circ{g}"'] \\
+		{} \arrow[rr, "F(h) = -\circ{h}"', maps to]  &  &   {}                                                         \\
+		{(Z,\|\cdot\|_Z)}  &  & {(Z^*,Z^*_{\leq{1}})} \arrow[uu, "F(h)(x^*)=x^*\circ{h}"']  
+	\end{tikzcd}
 \end{center}
 From this diagram, we can verify
 \begin{itemize}
@@ -356,7 +362,50 @@ From this diagram, we can verify
 
 \subsubsection{Construct a functor $\textsf{Ball}$ to $\textsf{Ban}^{op}$ }
 
+Let $F:\ball \rightarrow \banop$ be the functor which sends an object $(V,A)$ to $(V',\|\cdot\|_A)$ where $V'$ is the space of continuous linear functionals on $V$ and $\|h\|_A=\sup_{x\in A}|h(x)|$ as required by the question.
+Additionally, $F$ sends morphisms $g:(V,A)\rightarrow (W,B)$ to $F(g)= - \circ{g}$.
+The functor $F$ is encoded in the following commutative diagram:
+
+\begin{center}
+	\begin{tikzcd}
+		{(V,A)} \arrow[dd, "g"'] & & {(V',\|\cdot\|_A)} \\
+		
+		{} \arrow[rr, "F(g) = -\circ{g}"', maps to]& & {}\\
+		
+		{(W,B)} \arrow[dd, "h"'] & & {(W',\|\cdot\|_B)} \arrow[uu, "F(g)(k')= k' \circ g"']\\
+		
+		{} \arrow[rr, "F(h) = -\circ{g}"', maps to]{} & & {}\\
+		
+		{(X, C)} & & {(X',\|\cdot\|_C)} \arrow[uu, "F(h)(k')= k' \circ h"']\\
+	\end{tikzcd}
+\end{center}
+
+\noindent From this diagram, we can verify
+\begin{itemize}
+	\item That $F(g)$ is a morphism in $\textsf{Ban}^{op}$
+	\item $F$ is functorial
+	\item $F$ is unital
+\end{itemize}
+
 \subsubsection{Prove monomorphisms in $\textsf{Ban}^{op}$ are precisely the injective maps}
+
+\begin{proof}
+	
+	All injective maps are by definition monomorphisms.
+	To prove the other direction, let $f:A\rightarrow B$ be a monomorphism in $\ban$, and $K$ be the kernel of $f$.
+	Now, given the inclusion map $\iota:K\rightarrow A$ and the zero map $0:K\rightarrow A$ we have the following diagram.
+	\begin{center}
+		\begin{tikzcd}
+			{K} \arrow[hookrightarrow, shift left=1ex, "\iota"]{r} \arrow[shift right=1ex, "0"']{r} & {A} \arrow[>->, "f"']{r} & {B}
+		\end{tikzcd}
+	\end{center}
+	
+	\noindent We note $f\circ 0(x)=f\circ \iota(x)$ for all $x\in K$.
+	Since $f$ is a monomorphism, it follows that $0(x)=\iota(x)$ and the kernel of $f$ is trivial.
+	This $f$ is injective.
+	
+	
+\end{proof}
 
 \subsubsection{Prove epimorphisms in $\textsf{Ball}$ are precisely the surjective maps}
 
@@ -372,14 +421,17 @@ From this diagram, we can verify
 		\end{tikzcd}
 	\end{center}
 	
-	Letting $x\in X$ we see $h\circ f(x)= k\circ f(x)$.
-	Since $f$ is an epimorphism we have $h=k$ for all $y\in Y$.
-	So, $y\in f(X)$, every $y$ has an $f$ preimage, and consequently $f$ is surjective.
+	\noindent As $h$ and $k$ are quotient maps operating on Hausdorff Topological spaces, we know all properties are preserved such that $(Y/f(X),B/f(X))$ is a unit ball.
+	Let $p,q\in X$ such that $h\circ f(p)=k\circ f(q)$.
+	Since $f$ is an epimorphism $h=k$.
+	So, for all $y\in Y$ we know $y+f(X)=0+F(X)$.
+	Therefore $y$ is in the image $f(X)$.
+	Thus every element in $Y$ has a preimage and $f$ is surjective on X.
+	An identical argument will show the same result for $f$ being injective on $A$.
 	
 \end{proof}
 
 \subsubsection{Extension of a linear functional given an inclusion of Banach spaces}
-\paragraph{Assuming the functors defined above form an equivalence of categories, prove that given an inclusion of Banach spaces, any linear functional on A can be extended to a linear functional on B that has the same norm. You may use the fact that monomorphisms are precisely epimorphisms in the opposite category.}
 
 \begin{proof}
 	
@@ -396,7 +448,7 @@ From this diagram, we can verify
 		\end{tikzcd}
 	\end{center}
 	
-	By equivalence the morphism $F(g)$ is an epimorphism in $\textsf{Ball}$.
+	\noindent By equivalence the morphism $F(g)$ is an epimorphism in $\textsf{Ball}$.
 	By part 4 this morphism is a surjective map.
 	So, for every $a^* \in (A^*,A^*_{\leq1})$ there exists a nonempty preimage in $(B^*,B^*_{\leq1})$.
 	Furthermore, $F(g)(b^*)=b*\circ{g}$ is a restriction of $b^*$ to $A$ since $g$ is the inclusion map and has norm $1$.
