@@ -42,7 +42,7 @@
 	\textit{Claim:
 		The category \textsf{Ban} does not coproducts in general}
 \begin{proof}
-	The problem is equivalent to showing that free objects don't generally exist in \textsf{Ban}.  Assume towards a contradiction that free objects do exist generally in \textsf{Ban}.  Then, in particular, there exists a functor $F: \textsf{Set}\rightarrow\textsf{Ban}$, which is left adjoint to the forgetful functor.  Furthermore, for any set $X$, there exists a morphism (the unit of $F$?) $i: X\rightarrow |F(X)|$, such that for any Banach space $B$ and set morphism $\Phi: X\rightarrow|B|$, there exists a morphism in $g\in\textsf{Ban}(F(X),B)$ making the following diagram commute:
+	The problem is equivalent to showing that free objects don't generally exist in \textsf{Ban}.  Assume towards a contradiction that free objects do exist generally in \textsf{Ban}.  Then, in particular, there exists a functor $F: \textsf{Set}\rightarrow\textsf{Ban}$, which is left adjoint to the forgetful functor $|-|$.  Furthermore, for any set $X$, there exists a morphism (the unit of $F$?) $i: X\rightarrow |F(X)|$, such that for any Banach space $B$ and set morphism $\Phi: X\rightarrow|B|$, there exists a morphism in $g\in\textsf{Ban}(F(X),B)$ making the following diagram commute:
 	\begin{center}
 	\begin{tikzcd}
 	X \arrow[rd, "\Phi"'] \arrow[rr, "i"] & & \lvert F(X)\lvert \arrow[ld, "|g|"] \\
@@ -51,7 +51,7 @@
 	\end{center}
 Let $X=\N$, $B=\R$ (with norm the identity).  Let $||\cdot||$ denote the norm on $F(X)$, and let $\Phi(n) := n||i(n)||$.  Since $g$ is a morphism in $\textsf{Ban}$, it must be a bounded linear operator.  In particular, there exists some constant $C\in\R$ such that, for every $x\in F(X)$, the following inequality holds: $$|g(x)|\leq C||x||$$Letting $x=i(n)$ for some $n\in\N$, $$|g(i(n))|\leq C||i(n)||$$
 $$\Phi(n)\leq C||i(n)||$$
-$$n||i(n)||\leq C||i(n)$$
+$$n||i(n)||\leq C||i(n)||$$
 $$n\leq C$$This would have to be true for all $n\in\N$, which is absurd.
 \end{proof}
 \end{document}
