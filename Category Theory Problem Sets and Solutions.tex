@@ -22,6 +22,8 @@
 	linktoc=all
 }
 \definecolor{dg}{rgb}{0.0, 0.5, 0.0}
+\setlength\parindent{0pt}
+
 
 %Commands
 \newcommand{\R}{\mathbb{R}}
@@ -513,17 +515,105 @@ The functor $F$ is encoded in the following commutative diagram:
 	$$(\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta)))\cap \iota_\alpha(X_\alpha) = \varnothing$$.  Furthermore, a set in $X$ is open iff it's preimage under every $\iota_\alpha$ is open.  If $\omega$ is any given element in $A$, then
 	$$\iota_\omega^*(\cup_{\alpha\in A}X_\alpha)=X_\omega$$. Since the $X_\alpha$ are all open in their respective topologies, we have in particular that $\cup_{\beta\neq\alpha}(\iota_\beta(X_\beta))$ is open, so we have a separation of $X$ and the proof is complete.
 \end{proof}
+\subsection{Problem 3 - Alan}
+
+\begin{definition}
+	Let $\textsf{C}$ be a concrete category with faithful functor $f:\textsf{C} \xrightarrow{}\textsf{Set}$ and $X\in\textsf{Ob(Set)}$.
+	A \textit{Free Object} on $X$ is a pair $(F(X),i)$ of an object $F(X)\in\textsf{C}$ and an injective morphism $i:X\xrightarrow{}f(F(x))$ that satisfies the following universal property:
+	
+	\vspace{2mm}
+	
+	For any $B\in\textsf{C}$ and any morphism $\varphi : X\xrightarrow{}f(B)$, there exists a unique morphism $g:F(X)\xrightarrow{}B$ such that $\varphi=f(g)\circ i$.
+	In other words, the following diagram commutes.
+\end{definition}
+
+\begin{center}
+	\begin{tikzcd}
+		{X} \arrow["i"]{rr} \arrow["\varphi"']{rd} & & {f(F(x))} \arrow["f(g)"]{ld}\\
+		& {f(B)} &\\
+	\end{tikzcd}
+\end{center}
+
+\begin{definition}
+	Let $U:\textsf{C}\xrightarrow{}\textsf{Set}$ denote the forgetful functor on $\textsf{C}$.
+\end{definition}
+
+\begin{definition}
+	The \textit{Free Functor} $F:\textsf{Set}\xrightarrow{}\textsf{C}$ is the left adjoint to the forgetful functor.
+	Note, $F$ maps a set to its free object's component in $\textsf{C}$.
+\end{definition}
+\begin{lemma}\label{l}
+	In a locally small concrete category where the faithful functor is the forgetful functor $U$, the free object of a coproduct of sets is the coproduct of the free objects of those sets. 
+\end{lemma}
+\begin{proof}
+	Let $C$ be a concrete category with faithful functor being the forgetful $U:\textsf{C}\xrightarrow{}\textsf{Set}$.
+	Let $X_i\in Obj(\textsf{Set})$ for all $i\in I$, $C\in \textsf{C}$, and $F:\textsf{Set}\xrightarrow{}\textsf{C}$ be the free functor.
+	By the definition of coproducts we know $$\hom(\coprod_{i\in I} F(X_i), C) 
+	\cong \prod_{i\in I} \hom(F(X_i),C).$$
+	Since the free functor and the forgetful functor are an adjunction, we then have $$\prod_{i\in I} \hom(F(X_i),C) \cong \prod_{i\in I} \hom(X_i,U(C)).$$
+	By the definition of products $$\prod_{i\in I} \hom(X_i,U(C)) \cong \hom(\coprod_{i\in I} X_i, U(C)).$$
+	Finally, the definition of free objects then tells us $$\hom(\coprod_{i\in I} X_i, U(C)) \cong \hom(F(\coprod_{i\in I}X_i),C).$$
+	
+	With this chain of isomorphisms we see $\coprod_{i\in I} F(X_i)$ and $F(\coprod_{i\in I}X_i)$ both objects represent the same functor $\textsf{C}^{\textsf{op}} \xrightarrow{}\textsf{Set}$.
+	By the Yoneda Lemma $\coprod_{i\in I} F(X_i) \cong F(\coprod_{i\in I}X_i)$.
+\end{proof}
+
+\begin{proposition}
+	The category of Banach spaces with \textit{continuous maps} has no infinite coproducts.
+\end{proposition}
+
+\begin{proof}
+	Let $R$ denote the Banach space $(\R,|\cdot|)$ with absolute value as its norm.
+	Seeking a contradiction, suppose infinite coproducts exist in $\textsf{Ban}$ exist.
+	Then $\coprod_{i\in \N} R_i$, the coproduct of $\N$ copies of R, exists.
+	
+	\vspace{3mm}
+	
+	By the definition of free objects, $R$ is the free $\textsf{Ban}$ object of a singleton set $\{\ast\}$.
+	Consequently, lemma \ref{l} tells us $\coprod_{i\in \N} R_i \cong F(\coprod_{i\in I} \{\ast\}_i)$.
+	In $\textsf{Set}$ the coproduct is the disjoint union, and when all the sets are singleton sets the coproduct is simply the indexing set.
+	Given the indexing set is $\N$, we have $\coprod_{i\in \N} R_i \cong F(\N)$.
+	
+	\vspace{3mm}
+	
+	It then follows the free object $(F(\N),i)$ exists.
+	Let $\|\cdot\|$ denote the norm on $F(\N)$, and define $\varphi(n):=n\|i(n)\|$ for all $n\in\N$.
+	Since $F(\N)$ is a free object, there exists a unique $g:F(\N)\xrightarrow{} R$ such that this diagram commutes.
+	
+	\begin{center}
+		\begin{tikzcd}
+			{\N} \arrow["i"]{rr} \arrow["\varphi"']{rd} & & {U(f(\N))} \arrow["U(g)"]{ld}\\
+			& {\R} &\\
+		\end{tikzcd}
+	\end{center}
+	
+	As a morphim in $\textsf{Ban}$, we know $g$ is continuous and so bounded.
+	So, there exists a constant $c\in \R$ such that $$|g(x)|\le c\|x\|$$ for all $x\in F(\N)$.
+	We note, the image of $\N$ under $i$ is a subset of the vectors in $F(\N)$.
+	Consequently the following must hold for all $n\in \N$.
+	\begin{center}
+		$|g(i(n)|\le c\|i(n)\|$\\
+		\vspace{1mm}
+		$\varphi(n) \le c\|i(n)\|$\\
+		\vspace{1mm}
+		$n\|i(n)\|\le c\|i(n)\|$\\
+		\vspace{1mm}
+		$n\le c$\\
+	\end{center}
+	This is a contradiction since $c\in \R$ is fixed and  the inequality must hold for all $n\in \N$.
+	Therefore free objects do not exist in $\textsf{Ban}$ and consequently infinite coproducts do not exist in $\textsf{Ban}$ either.
+\end{proof}
+
 \section{Problem Set 4}
 \subsection{Assignments}
+\alert{Fix enumeration}
 \begin{enumerate}
-	\item \begin{enumerate}
+	\item \begin{itemize}[a.]
 		\item Show that if $M$ is a f.g. projective $R$-module for some comm. ring $R$, show that $$\textsf{Hom}(M,-)\dashv M\otimes_R -$$
 		\item Show that if $M$ is a (not necessarily f.g. and projective) $R$-module, then $\textsf{Hom}(M,-)$ does not preserve colimits in general
-	\end{enumerate}
+	\end{itemize}
 	\item Recall that there exists a left adjoint functor $L$ to the forgetful functor from Locally Compact Topological Spaces to Set. We have seen that $L$ induces the discrete topology. Recall further that the $\pi_0$ functor is the left adjoint to $L$. Show that $\pi_0$ does not admit a left adjoint itself.
-	\item Recall the functor Const: $C\to Fun(I,C)$. Show that $\text{colim}(\text{Const} X) = \bigsqcup_{\pi_0 I}X$.
-	\item Let $\mathbb{R}$ be a commutative ring (or field), and let $M$ be a dualizable module(or f.d. vector space) over $R$.  Prove or disprove: the morphism in $\text{Mod}_R:\,T(N)\to N$ given by tensor evaluation is an algebra
-	\item Prove or give a counterexample: any adjunction given by a variety of algebras is monadic
+	\item Recall the functor Const: $C\to Fun(I,C)$. Show that $\text{colim}(Const X) = \bigsqcup_{\pi_0 I}X$.
 \end{enumerate}
 \bibliography{ctreferences}
 \bibliographystyle{plain}
