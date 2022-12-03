@@ -570,7 +570,7 @@ The functor $F$ is encoded in the following commutative diagram:
 	\vspace{3mm}
 	
 	By the definition of free objects, $R$ is the free $\textsf{Ban}$ object of a singleton set $\{\ast\}$.
-	Consequently, lemma \ref{l} tells us $\coprod_{i\in \N} R_i \cong F(\coprod_{i\in I} \{\ast\}_i)$.
+	Consequently, lemma \ref{l} tells us $\coprod_{i\in \N} R_i \cong F(\coprod_{i\in \N} \{\ast\}_i)$.
 	In $\textsf{Set}$ the coproduct is the disjoint union, and when all the sets are singleton sets the coproduct is simply the indexing set.
 	Given the indexing set is $\N$, we have $\coprod_{i\in \N} R_i \cong F(\N)$.
 	
@@ -582,7 +582,7 @@ The functor $F$ is encoded in the following commutative diagram:
 	
 	\begin{center}
 		\begin{tikzcd}
-			{\N} \arrow["i"]{rr} \arrow["\varphi"']{rd} & & {U(f(\N))} \arrow["U(g)"]{ld}\\
+			{\N} \arrow["i"]{rr} \arrow["\varphi"']{rd} & & {U(F(\N))} \arrow["U(g)"]{ld}\\
 			& {\R} &\\
 		\end{tikzcd}
 	\end{center}
